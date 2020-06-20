@@ -4,7 +4,7 @@
 
     <div class="row">
       <div class="col-12 col-md-6 offset-md-3">
-        <div class="card mt-5">
+        <div class="card mt-5" v-if="product.prod_name">
           <div class="card-body">
             <h3 class="card-title">{{ product.prod_name }}</h3>
             <h5>{{ product.prod_price }}</h5>

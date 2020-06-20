@@ -12,14 +12,14 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" v-if="cartItems.length">
       <div class="col">
         <table class="table">
           <thead>
             <tr>
               <th scope="col">Product Name</th>
               <th scope="col">Quantity</th>
-              <th scope="col">Amount</th>
+              <th scope="col" colspan="2">Amount</th>
             </tr>
           </thead>
           <tbody>
@@ -44,9 +44,17 @@
               <td>
                 <strong>{{ cartItem.qty * cartItem.price }}</strong>
               </td>
+              <td>
+                <button
+                  class="btn-danger btn-sm"
+                  v-on:click="removeItem(cartItem)"
+                >
+                  Remove
+                </button>
+              </td>
             </tr>
             <tr>
-              <th scope="row" colspan="3">
+              <th scope="row" colspan="4">
                 <strong class="cart_total">Total: {{ cartTotal }}</strong>
               </th>
             </tr>
@@ -55,7 +63,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-12 col-md-8 offset-2">
         <ul class="list-group mt-5" v-if="cartItems.length">
           <li
@@ -75,7 +83,6 @@
           >
             <div>{{ cartItem.productName }}</div>
             <div>{{ cartItem.price }}</div>
-            <!-- <div>{{ cartItem.qty }}</div> -->
             <div>
               <button class="border-0 btn-sm" v-on:click="removeQty(cartItem)">
                 Remove</button
@@ -95,10 +102,8 @@
             <strong>Total: {{ cartTotal }}</strong>
           </li>
         </ul>
-
-        <!-- <button v-on:click="addToCart()">ADD TO CART</button> -->
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -141,6 +146,17 @@ export default {
 
       console.log(this.cartTotal);
     },
+
+    removeItem(e) {
+      var removeItem = this.cartItems
+        .map((data) => {
+          return data.id;
+        })
+        .indexOf(e.id);
+
+      this.cartItems.splice(removeItem, 1);
+      this.calc_cart_total();
+    },
   },
   computed: {
     cartItems() {
@@ -171,5 +187,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>

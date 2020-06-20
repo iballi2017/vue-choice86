@@ -49,18 +49,27 @@ export default {
       .then((data) => {
         return data.json();
       })
-      .then((data) => {
-        // console.log(data);
-        let productsArray = [];
-        for (let key in data) {
-          // console.log(data[key]);
-          data[key].id = key;
-          // console.log(data[key]);
-          productsArray.push(data[key]);
-        }
+      .then(
+        (data) => {
+          // console.log(data);
+          let productsArray = [];
+          for (let key in data) {
+            // console.log(data[key]);
+            data[key].id = key;
+            // console.log(data[key]);
+            productsArray.push(data[key]);
+          }
 
-        console.log(productsArray);
-        this.productArray = productsArray;
+          console.log(productsArray);
+          this.productArray = productsArray;
+        },
+        (err) => {
+          console.log("Err", err);
+        }
+      )
+      .catch((err) => {
+        console.log(err);
+        return err;
       });
   },
 };
